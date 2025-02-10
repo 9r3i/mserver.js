@@ -2,13 +2,13 @@ const HTTP = require("node:http");
 const FS   = require('node:fs/promises');
 
 /* */
-function mserver(port=8000,host='localhost',root='www'){
-this.version='1.0.0';
+function mserver(port=8000,host='localhost',root){
+this.version='1.0.5';
 this.port=port;
 this.host=host;
 this.fs=FS;
 this.http=HTTP;
-this.root=[__dirname,root].join('/');
+this.root=typeof root==='string'?root:[__dirname,root].join('/');
 /* mime types */
 this.mimeTypes={
   html:'text/html',
