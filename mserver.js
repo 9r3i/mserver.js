@@ -31,7 +31,7 @@ this.requestListener=async function(req,res){
   let parsed=_mserver.parseURL(req.url),
   file=parsed.file!='/'?parsed.file:'/index.html',
   accessed=await _mserver.fs
-    .access(this.root+file,_mserver.fs.constants.F_OK)
+    .access(_mserver.root+file,_mserver.fs.constants.F_OK)
     .then(e=>e?false:true)
     .catch(e=>false);
   console.log(accessed?200:404,req.url);
@@ -46,10 +46,10 @@ this.requestListener=async function(req,res){
     return;
   }
   /* read the file contents */
-  let content=await _mserver.fs.readFile(this.root+file)
+  let content=await _mserver.fs.readFile(_mserver.root+file)
     .then(r=>r)
     .catch(e=>'~'),
-  stats=await _mserver.fs.stat(this.root+file);
+  stats=await _mserver.fs.stat(_mserver.root+file);
   
   /* send the response */
   res.setHeader("Content-Type",_mserver.mime(file));
