@@ -3,12 +3,12 @@ const FS   = require('node:fs/promises');
 
 /* */
 function mserver(port=8000,host='localhost',root){
-this.version='1.0.5';
+this.version='1.0.6';
 this.port=port;
 this.host=host;
 this.fs=FS;
 this.http=HTTP;
-this.root=typeof root==='string'?root:[__dirname,root].join('/');
+this.root=typeof root==='string'?root:[__dirname,'www'].join('/');
 /* mime types */
 this.mimeTypes={
   html:'text/html',
