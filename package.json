@@ -1,6 +1,6 @@
 {
   "name": "@9r3i/mserver",
-  "version": "1.0.5",
+  "version": "1.0.8",
   "description": "Mini Server",
   "main": "mserver.js",
   "scripts": {

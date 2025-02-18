@@ -3,7 +3,7 @@ const FS   = require('node:fs/promises');
 
 /* */
 function mserver(port=8000,host='localhost',root){
-this.version='1.0.6';
+this.version='1.0.8';
 this.port=port;
 this.host=host;
 this.fs=FS;
@@ -11,10 +11,28 @@ this.http=HTTP;
 this.root=typeof root==='string'?root:[__dirname,'www'].join('/');
 /* mime types */
 this.mimeTypes={
-  html:'text/html',
   txt:'text/plain',
-  js:'application/javascript',
+  log:'text/plain',
+  ini:'text/plain',
   css:'text/css',
+  html:'text/html',
+  php:'application/x-httpd-php',
+  js:'application/javascript',
+  json:'application/json',
+  xml:'application/xml',
+  zip:'application/zip',
+  pdf:'application/pdf',
+  rar:'application/x-rar-compressed',
+  jpg:'image/jpeg',
+  jpeg:'image/jpeg',
+  png:'image/png',
+  gif:'image/gif',
+  webp:'image/webp',
+  mp4:'video/mp4',
+  webm:'video/webm',
+  mp3:'audio/mp3',
+  wav:'audio/wav',
+  ogg:'audio/ogg',
 };
 /* constant of this mserver object */
 const _mserver=this;
@@ -34,7 +52,7 @@ this.requestListener=async function(req,res){
     .access(_mserver.root+file,_mserver.fs.constants.F_OK)
     .then(e=>e?false:true)
     .catch(e=>false);
-  console.log(accessed?200:404,req.url);
+  console.log(accessed?200:404,req.method,req.url);
   
   /* check the access file */
   if(!accessed){
