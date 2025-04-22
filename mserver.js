@@ -1,12 +1,13 @@
-const HTTP = require("node:http");
-const FS   = require('node:fs/promises');
+const HTTP = require("http");
+const FS   = require("fs");
 
 /* */
 function mserver(port=8000,host='localhost',root){
-this.version='1.0.8';
+this.version='1.0.9';
 this.port=port;
 this.host=host;
-this.fs=FS;
+this.fs=FS.promises;
+this.fso=FS;
 this.http=HTTP;
 this.root=typeof root==='string'?root:[__dirname,'www'].join('/');
 /* mime types */
@@ -49,7 +50,7 @@ this.requestListener=async function(req,res){
   let parsed=_mserver.parseURL(req.url),
   file=parsed.file!='/'?parsed.file:'/index.html',
   accessed=await _mserver.fs
-    .access(_mserver.root+file,_mserver.fs.constants.F_OK)
+    .access(_mserver.root+file,_mserver.fso.constants.F_OK)
     .then(e=>e?false:true)
     .catch(e=>false);
   console.log(accessed?200:404,req.method,req.url);
